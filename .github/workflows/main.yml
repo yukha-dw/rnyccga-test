@@ -1,0 +1,39 @@
+on: [pull_request]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: Test and report
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: '24.11.0'
+        uses: actions/setup-node@v3
+        with:
+          node-version: '24.11.0'
+
+      - name: Run tests
+        run: |
+          npm i
+          npm run test
+
+      - name: Report coverage
+        uses: yukha-dw/report-nyc-coverage-github-action@v1.2.7
+        id: report-custom
+        with:
+          coverage_file: 'coverage/coverage-summary.json'
+          comment_template_file: '.github/cov-template.md'
+          comment_mode: 'replace'
+          sources_base_path: ${{ format('{0}/', github.workspace) }}
+          files_coverage_table_output_type_order: 'SBFL'
+
+      - name: Report coverage
+        uses: yukha-dw/report-nyc-coverage-github-action@v1.2.7-origin
+        id: report-origin
+        with:
+          coverage_file: 'coverage/coverage-summary.json'
+          comment_template_file: '.github/cov-template.md'
+          comment_mode: 'replace'
+          sources_base_path: ${{ format('{0}/', github.workspace) }}
+          files_coverage_table_output_type_order: 'SBFL'
