@@ -5,5 +5,6 @@ export default function app(request, response) {
 	} else {
 		response.writeHead('404');
 		response.end();
+
 	}
 }
