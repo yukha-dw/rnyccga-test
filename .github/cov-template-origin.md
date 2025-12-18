@@ -1,4 +1,4 @@
-## Coverage Report
+## Coverage Report 1.2.7-origin
 
 Commit: [{{short_commit_sha}}]({{commit_link}})
 Base: [{{base_ref}}@{{base_short_commit_sha}}]({{base_commit_link}})
