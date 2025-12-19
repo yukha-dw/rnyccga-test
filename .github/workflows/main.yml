@@ -1,4 +1,11 @@
-on: [pull_request]
+on:
+  pull_request:
+    types:
+      - 'opened'
+      - 'synchronize'
+
+permissions:
+   pull-requests: write
 
 jobs:
   hello_world_job:
@@ -20,7 +27,7 @@ jobs:
 
       - name: Report coverage
         uses: yukha-dw/report-nyc-coverage-github-action@v1.2.7
-        id: report-1.2.7
+        continue-on-error: true
         with:
           coverage_file: 'coverage/coverage-summary.json'
           comment_template_file: '.github/cov-template-1.2.7.md'
@@ -31,7 +38,7 @@ jobs:
 
       - name: Report coverage
         uses: yukha-dw/report-nyc-coverage-github-action@v1.2.7-origin
-        id: report-1.2.7-origin
+        continue-on-error: true
         with:
           coverage_file: 'coverage/coverage-summary.json'
           comment_template_file: '.github/cov-template-1.2.7-origin.md'
@@ -42,7 +49,7 @@ jobs:
 
       - name: Report coverage
         uses: yukha-dw/report-nyc-coverage-github-action@v1.2.7-modified
-        id: report-1.2.7-modified
+        continue-on-error: true
         with:
           coverage_file: 'coverage/coverage-summary.json'
           comment_template_file: '.github/cov-template-1.2.7-modified.md'
