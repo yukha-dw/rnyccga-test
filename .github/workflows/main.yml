@@ -27,7 +27,6 @@ jobs:
 
       - name: Report coverage
         uses: yukha-dw/report-nyc-coverage-github-action@v1.2.7
-        id: report-custom
         continue-on-error: true
         with:
           coverage_file: 'coverage/coverage-summary.json'
@@ -39,11 +38,21 @@ jobs:
 
       - name: Report coverage
         uses: yukha-dw/report-nyc-coverage-github-action@v1.2.7-origin
-        id: report-origin
         continue-on-error: true
         with:
           coverage_file: 'coverage/coverage-summary.json'
-          comment_template_file: '.github/cov-template-origin.md'
+          comment_template_file: '.github/cov-template-1.2.7-origin.md'
+          comment_mode: 'replace'
+          sources_base_path: ${{ format('{0}/', github.workspace) }}
+          files_coverage_table_output_type_order: 'SBFL'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Report coverage
+        uses: yukha-dw/report-nyc-coverage-github-action@v1.2.7-modified
+        continue-on-error: true
+        with:
+          coverage_file: 'coverage/coverage-summary.json'
+          comment_template_file: '.github/cov-template-1.2.7-modified.md'
           comment_mode: 'replace'
           sources_base_path: ${{ format('{0}/', github.workspace) }}
           files_coverage_table_output_type_order: 'SBFL'
